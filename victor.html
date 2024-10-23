@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Talabalar Platformasi</title>
+    <style>
+        /* Umumiy uslublar */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .navbar {
+            background-color: #0077b6;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="submit"], button {
+            background-color: #0077b6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #005f73;
+        }
+
+        footer {
+            background-color: #0077b6;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function showMainPlatform() {
+            document.getElementById('mainPlatform').classList.remove('hidden');
+            document.getElementById('extraPlatform').classList.add('hidden');
+        }
+
+        function showExtraPlatform() {
+            document.getElementById('mainPlatform').classList.add('hidden');
+            document.getElementById('extraPlatform').classList.remove('hidden');
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            if (name && email) {
+                alert(`Ma'lumotlar saqlandi:\nIsm: ${name}\nEmail: ${email}`);
+            } else {
+                alert("Iltimos, barcha maydonlarni to'ldiring!");
+            }
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById('file');
+            if (fileInput.files.length > 0) {
+                alert(`Fayl yuklandi: ${fileInput.files[0].name}`);
+            } else {
+                alert("Iltimos, fayl tanlang!");
+            }
+        }
+
+        function submitGrade() {
+            const grade = document.getElementById('grade').value;
+            if (grade >= 0 && grade <= 100) {
+                alert(`Sizning bahoyingiz: ${grade}`);
+            } else {
+                alert("Iltimos, 0 dan 100 gacha baho kiriting!");
+            }
+        }
+
+        function logout() {
+            alert("Siz tizimdan chiqdingiz!");
+            window.location.reload();
+        }
+    </script>
+</head>
+<body>
+    <header class="navbar">
+        <h1> Talabalar Platformasi</h1>
+        <nav>
+            <ul>
+                <li><a href="#home" onclick="showMainPlatform()">Bosh Sahifa</a></li>
+                <li><a href="#extra" onclick="showExtraPlatform()">Qo'shimcha Platforma</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Asosiy Platforma -->
+    <section id="mainPlatform">
+        <h2>Bosh Sahifa</h2>
+        <p>Xush kelibsiz! Bu platformada bilimlaringizni oshirib, topshiriqlarni bajarishingiz mumkin.</p>
+
+        <section id="profile">
+            <h3>Profil Sozlamalari</h3>
+            <form onsubmit="event.preventDefault(); saveProfile();">
+                <label for="name">Ism:</label>
+                <input type="text" id="name" name="name" placeholder="Ismingizni kiriting" required>
+
+                <label for="email">Elektron pochta:</label>
+                <input type="email" id="email" name="email" placeholder="email@misol.com" required>
+
+                <input type="submit" value="Saqlash">
+            </form>
+        </section>
+
+        <section id="assignments">
+            <h3>Topshiriq Yuklash va Baholash</h3>
+            <label for="file">Fayl yuklang:</label>
+            <input type="file" id="file" name="file">
+            <button onclick="uploadFile()">Yuklash</button>
+
+            <h4>Baho Kiriting</h4>
+            <input type="number" id="grade" name="grade" min="0" max="100" placeholder="0 dan 100 gacha">
+            <button onclick="submitGrade()">Yuborish</button>
+        </section>
+
+        <button class="button" onclick="showExtraPlatform()">Qo'shimcha Platformaga o'tish</button>
+    </section>
+
+    <!-- Qo'shimcha Platforma -->
+    <section id="extraPlatform" class="hidden">
+        <h2>Qo'shimcha Platforma</h2>
+        <p>Bu yerda maxsus kurslar va imkoniyatlar mavjud:</p>
+        <ul>
+            <li>Machine Learning</li>
+            <li>Data Science</li>
+            <li>Advanced JavaScript</li>
+        </ul>
+        <button class="button" onclick="showMainPlatform()">Asosiy Platformaga qaytish</button>
+    </section>
+
+    <a href="#" onclick="logout()">Chiqish</a>
+
+    <footer>
+        <p>&copy; 2024  Talabalar Platformasi. Barcha huquqlar himoyalangan.</p>
+    </footer>
+</body>
+</html>
